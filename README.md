@@ -1,6 +1,6 @@
-# Household Net Worth Dashboard
+# Ledger
 
-Planning project for a personal household net worth dashboard.
+Planning project for Ledger, a personal household finance dashboard covering net worth first and cashflow later.
 
 Current mode: requirements review and architecture/design-space exploration only.
 No application code should be written until Francis explicitly approves implementation.
@@ -17,4 +17,3 @@ Monthly maintenance must stay near five minutes.
 ## Working Docs
 
 - `docs/requirements-initial.md` - original brief and review questions.
-

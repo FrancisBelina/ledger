@@ -1,4 +1,4 @@
-# Household Net Worth Dashboard - Initial Requirements
+# Ledger - Initial Requirements
 
 ## Mode
 
@@ -6,7 +6,7 @@ Planning, requirements review, and architecture brainstorming only. Do not write
 
 ## Original Brief
 
-Francis wants to build a personal household net worth dashboard. Before writing any code, brainstorm and explore the design space, then recommend an architecture.
+Francis wants to build Ledger, a personal household finance dashboard. Stage 1 is a net worth dashboard; Stage 2 will later add cashflow. Before writing any code, brainstorm and explore the design space, then recommend an architecture.
 
 ### Context
 
