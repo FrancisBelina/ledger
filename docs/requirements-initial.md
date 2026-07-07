@@ -88,6 +88,21 @@ Initial hypotheses to test during brainstorming:
 - Historical FX rates should be stored per snapshot, but the system should also store enough provenance to show when a rate was fetched versus manually carried forward as fallback.
 - Stage 1 should probably use static JSON files and client-side rendering, with a data validation script or local entry helper later. Avoid introducing a database until Stage 2 proves it needs one.
 
+## UX Reference
+
+Use the Train personal training app as the main personal-utility UX reference. See `docs/ux-reference-train.md`.
+
+Relevant carryovers:
+
+- mobile-first static/PWA feel
+- no landing page
+- direct useful home screen
+- compact bottom navigation
+- one primary useful state/action
+- dense cards and status strips
+- local UI state only, with canonical data kept in source files
+- setup/update as a small form, not an admin panel
+
 ## Claude Review Request
 
 Please review the requirements before brainstorming architecture.

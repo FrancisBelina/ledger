@@ -17,3 +17,4 @@ Monthly maintenance must stay near five minutes.
 ## Working Docs
 
 - `docs/requirements-initial.md` - original brief and review questions.
+- `docs/ux-reference-train.md` - UX lessons borrowed from the Train personal training app.
