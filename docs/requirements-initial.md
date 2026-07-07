@@ -6,7 +6,7 @@ Planning, requirements review, and architecture brainstorming only. Do not write
 
 ## Original Brief
 
-Francis wants to build Ledger, a personal household finance dashboard. Stage 1 is a net worth dashboard; Stage 2 will later add cashflow. Before writing any code, brainstorm and explore the design space, then recommend an architecture.
+Francis wants to build Ledger, a personal household finance dashboard. The MVP should now include net worth, cashflow, and a lightweight comparison page against Australian household benchmarks for similar age cohorts. Before writing any code, brainstorm and explore the design space, then recommend an architecture.
 
 ### Context
 
@@ -16,9 +16,10 @@ Francis wants to build Ledger, a personal household finance dashboard. Stage 1 i
 - Must be viewable from a phone anywhere, not just localhost.
 - Update cadence: manual monthly snapshot, about five minutes of data entry.
 - Francis is comfortable with Python, JavaScript, Docker, and git workflows.
-- This is Stage 1 of a two-stage plan.
-- Stage 2, later and separate, is a cashflow dashboard for income, expenses, and savings rate.
-- Do not design Stage 2 now, but avoid architecture choices that force a rebuild when it arrives. Data format, hosting, and navigation should accommodate a second dashboard/page.
+- Original plan was Stage 1 net worth and Stage 2 cashflow.
+- Scope change: include cashflow in the first build rather than waiting.
+- Keep cashflow simple: manual monthly summary data, no bank feeds, no transaction categorisation engine unless explicitly added later.
+- Include a comparison page that benchmarks household net worth against Australian households around Francis's age cohort.
 
 ### Monthly Snapshot Data
 
@@ -38,6 +39,34 @@ Line item families:
 - Shares/ETFs, currently negligible but should be able to grow later.
 
 Net worth equals assets minus debts, consolidated into AUD.
+
+### Monthly Cashflow Data
+
+Cashflow should be included in the MVP, but kept deliberately simple.
+
+Candidate monthly fields:
+
+- household income
+- expenses
+- savings / surplus
+- savings rate
+- optional notes
+
+Avoid detailed transaction tracking in the first build. The same five-minutes-per-month maintenance constraint applies.
+
+### Comparison Benchmarking
+
+Ledger should include a comparison page for Australian household benchmarks by age cohort.
+
+The comparison page should:
+
+- use static benchmark data checked into the repo
+- show source, reference period, and caveats
+- prefer median / percentile / quintile values over means where possible
+- avoid implying precision when source data is coarse or lagged
+- compare against the household's AUD-consolidated net worth
+
+See `docs/comparison-benchmarking.md`.
 
 ### FX Handling
 
@@ -71,6 +100,7 @@ Consider:
 3. Sketch dashboard views ranked by usefulness. Candidate views: net worth over time stacked by category, gross assets vs total debt, AUD vs NZD exposure, LVR, month-on-month delta, liquid vs illiquid. Phone view should have two to three charts max and need zero interaction to be useful.
 4. Design the monthly update flow for near-zero friction: Francis types about ten numbers on phone or laptop, commits, done. Compare direct JSON editing vs a small entry form that generates and commits it.
 5. End with recommended architecture, phased build plan where Phase 1 is usable in one evening, and decisions needed from Francis first.
+6. Include the revised MVP scope: net worth, cashflow, and comparison page.
 
 ### Overriding Constraint
 
@@ -86,7 +116,7 @@ Initial hypotheses to test during brainstorming:
 - GitHub Pages with an encrypted blob can work, but passphrase UX and accidental data exposure risks need careful treatment.
 - Synology plus Tailscale is operationally familiar but probably higher friction for the view-only phone user and more brittle over time.
 - Historical FX rates should be stored per snapshot, but the system should also store enough provenance to show when a rate was fetched versus manually carried forward as fallback.
-- Stage 1 should probably use static JSON files and client-side rendering, with a data validation script or local entry helper later. Avoid introducing a database until Stage 2 proves it needs one.
+- MVP should probably use static JSON files and client-side rendering, with a data validation script or local entry helper later. Avoid introducing a database unless manual monthly cashflow summaries prove insufficient.
 
 ## UX Reference
 
@@ -102,6 +132,13 @@ Relevant carryovers:
 - dense cards and status strips
 - local UI state only, with canonical data kept in source files
 - setup/update as a small form, not an admin panel
+
+## Scope Updates
+
+- App name: Ledger.
+- Cashflow is now part of the MVP rather than a later Stage 2.
+- Add a comparison page against Australian household benchmarks for similar age cohorts.
+- Preserve the original five-minutes-per-month maintenance constraint.
 
 ## Claude Review Request
 

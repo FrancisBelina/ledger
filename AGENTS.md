@@ -7,7 +7,7 @@ This project is currently in planning mode.
 - Do not write dashboard application code yet.
 - Do not create production data files containing real household financial values.
 - Do not deploy, publish, or configure external services unless Francis explicitly asks.
-- Prefer architecture, schema, data-flow, hosting, security, and maintenance analysis.
+- Prefer architecture, schema, data-flow, hosting, security, benchmark-source, and maintenance analysis.
 
 ## Collaboration
 
@@ -21,5 +21,5 @@ This project is currently in planning mode.
 2. Phone-friendly view-only access for Francis's wife.
 3. Low-friction manual monthly data entry.
 4. Historical NZD to AUD conversion that does not silently restate old months.
-5. Clean expansion path for a later cashflow dashboard.
-
+5. Cashflow included in the MVP without creating bank-feed complexity.
+6. Benchmarking included as context, not advice or precision ranking.
