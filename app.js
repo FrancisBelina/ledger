@@ -634,7 +634,6 @@ function renderHome() {
 function renderNetWorth() {
   const snapshot = latestSnapshot();
   const summary = summarize(snapshot);
-  const runway = cashRunway(summary, cashflowRows().at(-1));
   const categoryItems = categories
     .map((category) => ({
       label: categoryLabels[category],
@@ -653,7 +652,7 @@ function renderNetWorth() {
       ${renderMetric("Net worth", currency(summary.netWorth), "consolidated to AUD", "primary")}
       ${renderMetric("Property", currency(summary.property), "gross value")}
       ${renderMetric("Liquid", currency(summary.liquid), "cash + shares")}
-      ${renderMetric("Cash runway", runway.value, runway.note)}
+      ${renderMetric("Global LVR", percent(summary.lvr), `${currency(summary.debt)} debt / ${currency(summary.property)} property`)}
     </section>
     <section class="panel">
       <p class="eyebrow">Category mix</p>

@@ -1,4 +1,4 @@
-const cacheName = "ledger-v19";
+const cacheName = "ledger-v20";
 const files = [
   "./",
   "./index.html",
