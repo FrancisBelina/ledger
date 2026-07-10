@@ -11,7 +11,7 @@ window.LEDGER_DATA = {
     {
       schema_version: 1,
       as_of: "2026-07-31",
-      fx: { pair: "NZD/AUD", rate: 0.82, requested_date: "2026-07-31", rate_date: "2026-07-31", mode: "manual", source: "sample" },
+      fx: { pair: "NZD/AUD", rate: 0.8357894736842105, requested_date: "2026-07-31", rate_date: "2026-07-31", mode: "manual", source: "sample" },
       line_items: [
         { id: "cash", name: "AUD cash", category: "cash", type: "asset", currency: "AUD", amount: 360000 },
         { id: "super_a", name: "My super", category: "super", type: "asset", currency: "AUD", amount: 219000 },
