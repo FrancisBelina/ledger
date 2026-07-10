@@ -408,6 +408,16 @@ function renderMetric(label, value, sub, tone = "") {
   `;
 }
 
+function renderCashflowInputMetric(label, id, value, sub) {
+  return `
+    <article class="metric cashflow-edit-metric">
+      <label for="${escapeHtml(id)}">${escapeHtml(label)}</label>
+      <input id="${escapeHtml(id)}" type="number" inputmode="decimal" value="${Number(value) || 0}">
+      <small>${escapeHtml(sub || "")}</small>
+    </article>
+  `;
+}
+
 function renderTrend(rows, key = "netWorth") {
   const values = rows.map((row) => row.summary[key]);
   const comparison = benchmarkComparison(summarize(latestSnapshot()));
@@ -676,8 +686,8 @@ function renderCashflow() {
       <h2>${monthLabel(`${latest.month}-01`)}</h2>
     </div>
     <section class="metric-grid">
-      ${renderMetric("Cash inflow", currency(latest.inflow), "monthly")}
-      ${renderMetric("Cash outflow", currency(latest.outflow), "monthly")}
+      ${renderCashflowInputMetric("Cash inflow", "cashflowPageInflowInput", latest.inflow, "monthly")}
+      ${renderCashflowInputMetric("Cash outflow", "cashflowPageOutflowInput", latest.outflow, "monthly")}
       ${renderMetric(latest.surplus >= 0 ? "Surplus" : "Deficit", currency(latest.surplus), "derived", "primary")}
       ${renderMetric("Savings rate", percent(latest.savingsRate), "derived")}
     </section>
@@ -937,6 +947,19 @@ function render() {
   renderSheet();
 }
 
+function applyCashflowPageInputs() {
+  if (activeTab !== "cashflow") return;
+  const inflowInput = document.querySelector("#cashflowPageInflowInput");
+  const outflowInput = document.querySelector("#cashflowPageOutflowInput");
+  if (!inflowInput || !outflowInput) return;
+  const cash = latestCashflow();
+  cash.inflow = Number(inflowInput.value) || 0;
+  cash.outflow = Number(outflowInput.value) || 0;
+  delete cash.income;
+  delete cash.expenses;
+  saveLedger();
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -954,6 +977,9 @@ els.navButtons.forEach((button) => {
   });
 });
 
-els.refreshButton.addEventListener("click", render);
+els.refreshButton.addEventListener("click", () => {
+  applyCashflowPageInputs();
+  render();
+});
 
 render();

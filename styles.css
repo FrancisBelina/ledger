@@ -219,6 +219,25 @@ main {
   line-height: 1.12;
 }
 
+.cashflow-edit-metric label {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.cashflow-edit-metric input {
+  min-height: 38px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.24rem;
+  line-height: 1.12;
+  font-weight: 850;
+}
+
 .metric.primary {
   border-color: rgba(134, 184, 208, 0.42);
 }
