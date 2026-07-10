@@ -209,7 +209,7 @@ function summarize(snapshot) {
     if (item.type === "debt") summary.debt += amountAud;
     if (item.category === "property" && item.type === "asset") summary.property += amountAud;
     if (item.category === "cash" || item.category === "shares") summary.liquid += amountAud;
-    if (item.currency === "NZD") summary.nzdExposure += amountAud;
+    if (item.currency === "NZD" && item.type === "asset") summary.nzdExposure += amountAud;
   });
   summary.netWorth = summary.assets - summary.debt;
   summary.lvr = summary.property ? summary.debt / summary.property : 0;
@@ -613,9 +613,6 @@ function renderHome() {
 function renderNetWorth() {
   const snapshot = latestSnapshot();
   const summary = summarize(snapshot);
-  const cash = cashflowRows().at(-1);
-  const cashMetricTitle = cash.surplus < 0 ? "Monthly deficit" : "Monthly surplus";
-  const cashMetricNote = cash.surplus < 0 ? "negative cashflow" : "positive cashflow";
   const categoryItems = categories
     .map((category) => ({
       label: categoryLabels[category],
@@ -634,7 +631,7 @@ function renderNetWorth() {
       ${renderMetric("Net worth", currency(summary.netWorth), "consolidated to AUD", "primary")}
       ${renderMetric("Property", currency(summary.property), "gross value")}
       ${renderMetric("Liquid", currency(summary.liquid), "cash + shares")}
-      ${renderMetric(cashMetricTitle, currency(cash.surplus), cashMetricNote)}
+      ${renderMetric("NZD exposure", currency(summary.nzdExposure), "NZD assets converted to AUD")}
     </section>
     <section class="panel">
       <p class="eyebrow">Category mix</p>
