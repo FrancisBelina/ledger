@@ -643,7 +643,7 @@ function renderNetWorth() {
         ${snapshot.line_items.map((item) => `
           <div class="table-row">
             <span>${escapeHtml(item.name)}</span>
-            <span>${escapeHtml(item.currency)}</span>
+            <span>AUD</span>
             <strong>${currency(toAud(item, snapshot))}</strong>
           </div>
         `).join("")}
