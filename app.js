@@ -212,7 +212,7 @@ function summarize(snapshot) {
     if (item.currency === "NZD") summary.nzdExposure += item.type === "debt" ? -amountAud : amountAud;
   });
   summary.netWorth = summary.assets - summary.debt;
-  summary.lvr = summary.property ? summary.debt / summary.property : 0;
+  summary.lvr = summary.assets ? summary.debt / summary.assets : 0;
   return summary;
 }
 
@@ -652,7 +652,7 @@ function renderNetWorth() {
       ${renderMetric("Net worth", currency(summary.netWorth), "consolidated to AUD", "primary")}
       ${renderMetric("Property", currency(summary.property), "gross value")}
       ${renderMetric("Liquid", currency(summary.liquid), "cash + shares")}
-      ${renderMetric("Global LVR", percent(summary.lvr), `${currency(summary.debt)} debt / ${currency(summary.property)} property`)}
+      ${renderMetric("Global LVR", percent(summary.lvr), `${currency(summary.debt)} debt / ${currency(summary.assets)} total assets`)}
     </section>
     <section class="panel">
       <p class="eyebrow">Category mix</p>
