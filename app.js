@@ -613,6 +613,9 @@ function renderHome() {
 function renderNetWorth() {
   const snapshot = latestSnapshot();
   const summary = summarize(snapshot);
+  const cash = cashflowRows().at(-1);
+  const cashMetricTitle = cash.surplus < 0 ? "Monthly deficit" : "Monthly surplus";
+  const cashMetricNote = cash.surplus < 0 ? "negative cashflow" : "positive cashflow";
   const categoryItems = categories
     .map((category) => ({
       label: categoryLabels[category],
@@ -631,7 +634,7 @@ function renderNetWorth() {
       ${renderMetric("Net worth", currency(summary.netWorth), "consolidated to AUD", "primary")}
       ${renderMetric("Property", currency(summary.property), "gross value")}
       ${renderMetric("Liquid", currency(summary.liquid), "cash + shares")}
-      ${renderMetric("NZD exposure", currency(summary.nzdExposure), "converted to AUD")}
+      ${renderMetric(cashMetricTitle, currency(cash.surplus), cashMetricNote)}
     </section>
     <section class="panel">
       <p class="eyebrow">Category mix</p>
