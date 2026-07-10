@@ -1,9 +1,10 @@
-const cacheName = "ledger-v11";
+const cacheName = "ledger-v12";
 const files = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
+  "./data/sample-data.js",
   "./manifest.json",
   "./assets/apple-touch-icon.png",
   "./assets/icon-192.png",
