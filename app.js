@@ -311,6 +311,17 @@ function cashflowGuidance(summary, cashflow) {
   return `At this deficit, liquid savings would be depleted in ${years.toFixed(1)} years.`;
 }
 
+function cashRunway(summary, cashflow) {
+  if (cashflow.surplus >= 0) {
+    return { value: "Stable", note: "no monthly deficit" };
+  }
+  const monthlyBurn = Math.abs(cashflow.surplus);
+  const months = monthlyBurn ? (summary.byCategory.cash || 0) / monthlyBurn : Infinity;
+  if (!Number.isFinite(months)) return { value: "Stable", note: "cash / monthly deficit" };
+  const value = months >= 12 ? `${(months / 12).toFixed(1)} yrs` : `${months.toFixed(1)} mo`;
+  return { value, note: `${currency(summary.byCategory.cash || 0)} cash / ${currency(monthlyBurn)} burn` };
+}
+
 function benchmarkComparison(summary) {
   const benchmark = ledger.benchmarks.values.find((item) => item.label === ledger.benchmarks.cohort_label) || ledger.benchmarks.values[0];
   const multiple = benchmark?.value_aud ? summary.netWorth / benchmark.value_aud : 0;
@@ -613,6 +624,7 @@ function renderHome() {
 function renderNetWorth() {
   const snapshot = latestSnapshot();
   const summary = summarize(snapshot);
+  const runway = cashRunway(summary, cashflowRows().at(-1));
   const categoryItems = categories
     .map((category) => ({
       label: categoryLabels[category],
@@ -631,7 +643,7 @@ function renderNetWorth() {
       ${renderMetric("Net worth", currency(summary.netWorth), "consolidated to AUD", "primary")}
       ${renderMetric("Property", currency(summary.property), "gross value")}
       ${renderMetric("Liquid", currency(summary.liquid), "cash + shares")}
-      ${renderMetric("NZD exposure", currency(summary.nzdExposure), "net NZD position in AUD")}
+      ${renderMetric("Cash runway", runway.value, runway.note)}
     </section>
     <section class="panel">
       <p class="eyebrow">Category mix</p>
